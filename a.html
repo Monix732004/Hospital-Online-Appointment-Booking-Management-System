@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Appointments - Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+body { font-family:Arial; background:#f0f0f0; padding-top:70px; }
+.container { max-width:900px; margin:auto; background:white; padding:30px; border-radius:10px; }
+h2 { text-align:center; }
+button { padding:6px 12px; margin:2px; border:none; border-radius:4px; cursor:pointer; }
+.approve { background:green; color:white; }
+.reject { background:red; color:white; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>All Appointments - Admin Panel</h2>
+  <table class="table table-bordered" id="appointmentsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+  function loadAppointments(){
+    const appointments = JSON.parse(localStorage.getItem('hospital_appointments')) || [];
+    const tbody = document.querySelector("#appointmentsTable tbody");
+    tbody.innerHTML = '';
+    appointments.forEach(app => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${app.id}</td>
+          <td>${app.patientName}</td>
+          <td>${app.patientMobile}</td>
+          <td>${app.appointmentDate}</td>
+          <td>${app.appointmentTime}</td>
+          <td>${app.status.charAt(0).toUpperCase() + app.status.slice(1)}</td>
+          <td>
+            <button class="approve" onclick="updateStatus(${app.id}, 'approved')">Approve</button>
+            <button class="reject" onclick="updateStatus(${app.id}, 'declined')">Reject</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  function updateStatus(id, status){
+    let appointments = JSON.parse(localStorage.getItem('hospital_appointments')) || [];
+    appointments = appointments.map(app => {
+      if(app.id == id) app.status = status;
+      return app;
+    });
+    localStorage.setItem('hospital_appointments', JSON.stringify(appointments));
+    loadAppointments();
+  }
+
+  window.onload = loadAppointments;
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Appointment Status - MM Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      margin: 0;
+      padding-top: 70px;
+      min-height: 100vh;
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .navbar {
+      background-color: #022040;
+      border: none;
+      border-radius: 0;
+    }
+
+    .navbar-brand, .navbar-nav > li > a {
+      color: white !important;
+      font-weight: bold;
+    }
+
+    .navbar-brand:hover, .navbar-nav > li > a:hover {
+      color: #a8c7ff !important;
+    }
+
+    .status-container {
+      max-width: 600px;
+      margin: auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #022040;
+    }
+
+    .btn-primary {
+      background-color: #022040;
+      border-color: #022040;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .btn-primary:hover {
+      background-color: #013366;
+      border-color: #013366;
+    }
+
+    .footer {
+      background-color: #022040;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .instructions {
+      background-color: #e9f5ff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    #statusResult {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #statusResult.approved { background-color: #d4edda; color: #155724; }
+    #statusResult.pending { background-color: #fff3cd; color: #856404; }
+    #statusResult.declined { background-color: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">MM Hospital</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Admin Login</a></li>
+      <li><a href="register.html">Patient Registration</a></li>
+      <li><a href="status.html">Check Status</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Status Check Form -->
+<div class="status-container">
+  <h2>Check Your Appointment Status</h2>
+
+  <div class="instructions">
+    <p><strong>Note:</strong> Enter your full name and mobile number exactly as you provided during registration to check your appointment status.</p>
+  </div>
+
+  <form id="statusCheckForm">
+    <div class="form-group">
+      <label for="patientName">Full Name</label>
+      <input type="text" class="form-control" id="patientName" placeholder="Enter your full name" required>
+    </div>
+    <div class="form-group">
+      <label for="patientMobile">Mobile Number</label>
+      <input type="tel" class="form-control" id="patientMobile" placeholder="Enter your mobile number" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Check Status</button>
+  </form>
+
+  <div id="statusResult"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2025 MM Hospital. All Rights Reserved.</p>
+</div>
+
+<script>
+document.getElementById('statusCheckForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('patientName').value.trim().toLowerCase();
+    const mobile = document.getElementById('patientMobile').value.trim();
+
+    if (!name || !mobile) {
+      alert('Please enter both your name and mobile number.');
+      return;
+    }
+
+    fetch("http://localhost:8080/appointments") // same endpoint as all-appointments.html
+      .then(res => res.json())
+      .then(data => {
+        const resultDiv = document.getElementById('statusResult');
+
+        // Only change: trim server data and case-insensitive name check
+        const patient = data.find(p => 
+            p.patientName.trim().toLowerCase() === name &&
+            p.patientMobile.trim() === mobile
+        );
+
+        if (patient) {
+            let statusText = '';
+            let statusClass = '';
+
+            if (patient.status.toLowerCase() === 'approved') { 
+                statusText = '✅ Approved'; 
+                statusClass = 'approved'; 
+            } else if (patient.status.toLowerCase() === 'pending') { 
+                statusText = '⏳ Pending'; 
+                statusClass = 'pending'; 
+            } else if (patient.status.toLowerCase() === 'declined' || patient.status.toLowerCase() === 'rejected') { 
+                statusText = '❌ Declined'; 
+                statusClass = 'declined'; 
+            }
+
+            resultDiv.innerHTML = `
+              ${statusText} <br>
+              <strong>Doctor:</strong> ${patient.doctor} <br>
+              <strong>Date:</strong> ${patient.date} <br>
+              <strong>Time:</strong> ${patient.time} <br>
+              ${patient.adminNote ? '<strong>Note:</strong> ' + patient.adminNote : ''}
+            `;
+            resultDiv.className = statusClass;
+            resultDiv.style.display = 'block';
+        } else {
+            resultDiv.innerHTML = '❌ No appointment found for the given details.';
+            resultDiv.className = 'declined';
+            resultDiv.style.display = 'block';
+        }
+      })
+      .catch(err => {
+        alert("Error fetching appointments. Make sure your server is running.");
+        console.error(err);
+      });
+};
+</script>
+
+</body>
+</html>

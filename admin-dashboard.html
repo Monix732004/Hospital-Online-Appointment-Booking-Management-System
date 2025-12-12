@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - MM Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #022040;
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      background-color: #000 !important;
+      border: none;
+      border-radius: 0;
+    }
+
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav > li > a {
+      color: #fff !important;
+    }
+
+    .content {
+      flex: 1;
+      padding-top: 70px;
+      padding-bottom: 60px; /* Leave space for fixed footer */
+    }
+
+    .dashboard {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      color: #000;
+    }
+
+    .dashboard h2 {
+      margin-bottom: 20px;
+    }
+
+    .dashboard a {
+      display: inline-block;
+      margin: 15px;
+      padding: 12px 24px;
+      font-size: 16px;
+      color: white;
+      background-color: #337ab7;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .dashboard a:hover {
+      background-color: #23527c;
+    }
+
+    .back-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-box a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      border: 2px solid white;
+    }
+
+    .back-box a i {
+      margin-right: 8px;
+    }
+
+    .back-box a:hover {
+      background-color: #23527c;
+    }
+
+    .footer {
+      background-color: #000000;
+      color: #ccc;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">MM Hospital - Admin</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div class="content">
+    <div class="dashboard">
+      <h2>Welcome to the Admin Dashboard</h2>
+      <p>Use the buttons below to manage appointments and patient records.</p>
+
+      <a href="users.html">👤 View Patients</a>
+      <a href="all-appointments.html">📅 View Appointments</a>
+    </div>
+
+    <!-- Back Arrow Button -->
+    <div class="back-box">
+      <a href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 MM Hospital | Admin Panel</p>
+  </div>
+
+</body>
+</html>

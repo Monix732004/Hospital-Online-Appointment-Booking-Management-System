@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services - MM Hospital</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #000845, #020d4f);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+    }
+
+    .navbar, .footer {
+      background-color: black;
+      padding: 15px;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .service-header {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    .service-header h2 {
+      font-weight: bold;
+      font-size: 36px;
+    }
+
+    .service-header p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 50px 60px;
+    }
+
+    .service-box {
+      background-color: #0b1a4b;
+      border-radius: 15px;
+      padding: 25px 20px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .service-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .service-box i {
+      font-size: 36px;
+      color: #4eaaff;
+      margin-bottom: 15px;
+    }
+
+    .service-box h4 {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .service-box p {
+      font-size: 14px;
+      color: #cfdaf1;
+    }
+
+    .back-btn {
+      display: block;
+      width: 160px;
+      margin: 40px auto;
+      padding: 12px;
+      background-color: #0b1a4b;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 2px solid white;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: white;
+      color: #000;
+    }
+
+    .back-btn::before {
+      content: "← ";
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    MM HOSPITAL - OUR SERVICES
+  </div>
+
+  <section class="service-header">
+    <h2>Our Services</h2>
+    <p>Explore the wide range of healthcare and support services offered by MM Hospital to ensure better care, comfort, and convenience for all our patients.</p>
+  </section>
+
+  <section class="services-grid">
+    <a href="doctors.html" style="text-decoration: none; color:inherit"> 
+      <div class="service-box">
+        <i class="fas fa-user-md"></i>
+        <h4>Doctor Profiles</h4>
+        <p>View specializations, availability and qualifications of doctors.</p>
+      </div>
+    </a>
+
+    <a href="appointment.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-calendar-check"></i>
+        <h4>Online Appointments</h4>
+        <p>Book, reschedule, or cancel appointments with ease and receive reminders.</p>
+      </div>
+    </a>
+
+    <a href="billing.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <h4>Billing & Payments</h4>
+        <p>Consultation, lab, pharmacy billing with UPI, card, and insurance options.</p>
+      </div>
+    </a>
+
+    <a href="pharmacy.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-pills"></i>
+        <h4>Pharmacy</h4>
+        <p>Medicine inventory, expiry tracking, barcode, and stock alerts.</p>
+      </div>
+    </a>
+
+    <a href="lab.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-vial"></i>
+        <h4>Lab & Diagnostics</h4>
+        <p>Test requests, sample tracking, uploads and patient notifications.</p>
+      </div>
+    </a>
+
+    <a href="emr.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-notes-medical"></i>
+        <h4>EMR Access</h4>
+        <p>Electronic medical records and diagnostic imaging access anytime.</p>
+      </div>
+    </a>
+
+    <a href="portal.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-network-wired"></i>
+        <h4>Patient & Doctor Portals</h4>
+        <p>Web and mobile access to records, prescriptions, and communication tools.</p>
+      </div>
+    </a>
+
+    <a href="emergency.html" style="text-decoration: none; color: inherit;">
+      <div class="service-box">
+        <i class="fas fa-ambulance"></i>
+        <h4>Emergency Services</h4>
+        <p>24/7 ambulance and trauma care for critical patient needs.</p>
+      </div>
+    </a>
+  </section>
+
+  <a href="index.html" class="back-btn">Back</a>
+
+  <div class="footer">
+    © 2025 MM Hospital | All Rights Reserved
+  </div>
+
+</body>
+</html>

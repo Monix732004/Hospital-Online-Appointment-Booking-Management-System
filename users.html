@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Patients - MM Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0b1a3c; /* Dark blue */
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #000;
+      color: white;
+      padding: 15px 30px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 30px 0 20px;
+    }
+
+    table {
+      width: 90%;
+      margin: 0 auto 40px;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      color: #000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #errorMsg {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Back button box */
+    .back-box {
+      margin: 20px auto;
+      width: fit-content;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #000;
+      color: white;
+      text-decoration: none;
+      border: 2px solid white;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #333;
+    }
+
+    .back-button::before {
+      content: "← ";
+    }
+
+    /* Footer */
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">MM Hospital - Registered Patients</div>
+
+  <h2>Registered Patients</h2>
+
+  <table id="patientsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Patient rows will be added here -->
+    </tbody>
+  </table>
+
+  <p id="errorMsg"></p>
+
+  <div class="back-box">
+    <a href="javascript:history.back()" class="back-button">Back</a>
+  </div>
+
+  <footer>
+    © 2025 MM Hospital. All rights reserved.
+  </footer>
+
+  <script>
+    fetch("http://localhost:8080/patients")
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to fetch patients");
+        return response.json();
+      })
+      .then(patients => {
+        const tbody = document.querySelector("#patientsTable tbody");
+        if (patients.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No patients found</td></tr>`;
+        } else {
+          patients.forEach(p => {
+            const row = `
+              <tr>
+                <td>${p.id}</td>
+                <td>${p.name}</td>
+                <td>${p.mobileNumber}</td>
+                <td>${p.email}</td>
+                <td>${p.address}</td>
+              </tr>`;
+            tbody.innerHTML += row;
+          });
+        }
+      })
+      .catch(error => {
+        document.getElementById("errorMsg").textContent = "Error: " + error.message;
+        console.error(error);
+      });
+  </script>
+
+</body>
+</html>

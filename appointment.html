@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Appointment - MM Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap + FontAwesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --primary: #005792;
+      --secondary: #00bbf0;
+      --accent: #fdb44b;
+      --dark: #00204a;
+      --light: #f4f7fc;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      background-color: var(--light);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      background-color: var(--dark) !important;
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav > li > a {
+      color: #fff !important;
+      font-weight: 500;
+    }
+
+    .alert-success {
+      background-color: #28a745;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    .content {
+      flex: 1;
+      padding: 80px 20px 40px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary);
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .doctor-selection-container {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .doctor-selection-box {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .doctor-selection-box:hover {
+      background-color: #e9ecef;
+    }
+
+    .doctor-selection-box:after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--secondary);
+    }
+
+    .doctor-selection-box.open:after {
+      content: '\f077';
+    }
+
+    .selected-doctor {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .selected-doctor-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary);
+    }
+
+    .selected-doctor-info h4 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    .selected-doctor-info p {
+      margin: 5px 0 0;
+      color: var(--secondary);
+      font-size: 14px;
+    }
+
+    .doctor-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+      border: 1px solid #ddd;
+      border-top: none;
+    }
+
+    .doctor-dropdown.open {
+      display: block;
+    }
+
+    .doctor-option {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .doctor-option:hover {
+      background-color: #f1f1f1;
+    }
+
+    .doctor-option-info h4 {
+      margin: 0;
+      font-size: 15px;
+      color: var(--primary);
+    }
+
+    .doctor-option-info p {
+      margin: 3px 0 0;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+
+    form label {
+      display: block;
+      margin: 15px 0 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+      font-size: 15px;
+    }
+
+    form textarea {
+      min-height: 80px;
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(0, 187, 240, 0.2);
+      outline: none;
+    }
+
+    .time-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .time-container input {
+      flex: 2;
+    }
+
+    .time-container select {
+      flex: 1;
+    }
+
+    button[type="submit"] {
+      padding: 14px 20px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .back-box {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back-box a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 25px;
+      background-color: rgb(255, 255, 255);
+      color: var(--primary);
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      border: 2px solid var(--primary);
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .back-box a i {
+      margin-right: 8px;
+    }
+
+    .back-box a:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      background-color: var(--dark);
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+      font-size: 14px;
+    }
+
+    #msg {
+      color: #28a745;
+      text-align: center;
+      display: none;
+      margin-top: 15px;
+      font-weight: 500;
+      padding: 10px;
+      background: rgba(40, 167, 69, 0.1);
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><i class="fas fa-hospital-alt"></i> MM Hospital</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="login.html"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Alert -->
+<div id="alertBox" class="alert-success">✅ Appointment Booked Successfully!</div>
+
+<!-- Main Content -->
+<div class="content">
+  <!-- Appointment Form -->
+  <div class="container">
+    <div class="form-header">
+      <i class="fas fa-calendar-check"></i>
+      <h2>Book Your Appointment</h2>
+    </div>
+    
+    <form id="appointmentForm">
+      <!-- Doctor Selection -->
+      <div class="doctor-selection-container">
+        <label>Select Doctor:</label>
+        <div class="doctor-selection-box" id="doctorSelectionBox">
+          <div class="selected-doctor" id="selectedDoctorDisplay">
+            <div class="placeholder-text">Tap to select a doctor</div>
+          </div>
+        </div>
+        <div class="doctor-dropdown" id="doctorDropdown">
+          <div class="doctor-option" onclick="selectDoctor('DOC1024', 'Dr. Sarah Johnson', 'Cardiology', 'https://randomuser.me/api/portraits/women/65.jpg')">
+            <div class="doctor-option-info">
+              <h4>Dr. Sarah Johnson</h4>
+              <p>Cardiology Specialist</p>
+            </div>
+          </div>
+          <div class="doctor-option" onclick="selectDoctor('DOC2056', 'Dr. Michael Chen', 'Neurology', 'https://randomuser.me/api/portraits/men/32.jpg')">
+            <div class="doctor-option-info">
+              <h4>Dr. Michael Chen</h4>
+              <p>Neurology Specialist</p>
+            </div>
+          </div>
+          <div class="doctor-option" onclick="selectDoctor('DOC3078', 'Dr. Emily Rodriguez', 'Pediatrics', 'https://randomuser.me/api/portraits/women/44.jpg')">
+            <div class="doctor-option-info">
+              <h4>Dr. Emily Rodriguez</h4>
+              <p>Pediatrics Specialist</p>
+            </div>
+          </div>
+          <div class="doctor-option" onclick="selectDoctor('DOC4091', 'Dr. James Wilson', 'Orthopedics', 'https://randomuser.me/api/portraits/men/75.jpg')">
+            <div class="doctor-option-info">
+              <h4>Dr. James Wilson</h4>
+              <p>Orthopedics Specialist</p>
+            </div>
+          </div>
+          <div class="doctor-option" onclick="selectDoctor('DOC5023', 'Dr. Priya Patel', 'Dermatology', 'https://randomuser.me/api/portraits/women/33.jpg')">
+            <div class="doctor-option-info">
+              <h4>Dr. Priya Patel</h4>
+              <p>Dermatology Specialist</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" placeholder="Enter your full name" required>
+
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" placeholder="Enter your mobile number" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" placeholder="Enter your email (optional)">
+
+      <label for="date">Preferred Date:</label>
+      <input type="date" id="date" required>
+
+      <label for="time">Preferred Time:</label>
+      <div class="time-container">
+        <input type="time" id="time" required>
+        <select id="ampm" required>
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+
+      <label for="notes">Additional Notes:</label>
+      <textarea id="notes" rows="3" placeholder="Any special requirements or notes for the doctor"></textarea>
+
+      <input type="hidden" id="doctorId" value="">
+      <input type="hidden" id="doctorName" value="">
+      <input type="hidden" id="doctorSpecialty" value="">
+
+      <button type="submit">Confirm Appointment <i class="fas fa-arrow-right"></i></button>
+      <p class="success" id="msg">✅ Your appointment has been booked successfully!</p>
+    </form>
+  </div>
+
+  <!-- Back Button -->
+  <div class="back-box">
+    <a href="services.html">
+      <i class="fas fa-arrow-left"></i> Back to Services
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p><i class="fas fa-hospital"></i> &copy; 2025 MM Hospital | Appointment System</p>
+</div>
+
+<!-- Script -->
+<script>
+  const form = document.getElementById("appointmentForm");
+  const msg = document.getElementById("msg");
+  const alertBox = document.getElementById("alertBox");
+  const doctorSelectionBox = document.getElementById("doctorSelectionBox");
+  const doctorDropdown = document.getElementById("doctorDropdown");
+  const selectedDoctorDisplay = document.getElementById("selectedDoctorDisplay");
+
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+
+  doctorSelectionBox.addEventListener('click', function() {
+    this.classList.toggle('open');
+    doctorDropdown.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!doctorSelectionBox.contains(event.target) && !doctorDropdown.contains(event.target)) {
+      doctorSelectionBox.classList.remove('open');
+      doctorDropdown.classList.remove('open');
+    }
+  });
+
+  function selectDoctor(id, name, specialty, avatar) {
+    selectedDoctorDisplay.innerHTML = `
+      <img src="${avatar}" alt="Doctor" class="selected-doctor-avatar">
+      <div class="selected-doctor-info">
+        <h4>${name}</h4>
+        <p>${specialty} Specialist</p>
+      </div>
+    `;
+    document.getElementById('doctorId').value = id;
+    document.getElementById('doctorName').value = name;
+    document.getElementById('doctorSpecialty').value = specialty;
+    doctorSelectionBox.classList.remove('open');
+    doctorDropdown.classList.remove('open');
+  }
+
+  form.onsubmit = function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const mobile = document.getElementById("mobile").value;
+    const email = document.getElementById("email").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const ampm = document.getElementById("ampm").value;
+    const notes = document.getElementById("notes").value;
+    const doctorId = document.getElementById("doctorId").value;
+    const doctorName = document.getElementById("doctorName").value;
+    const doctorSpecialty = document.getElementById("doctorSpecialty").value;
+
+    if (!doctorId) {
+      alert("Please select a doctor");
+      return;
+    }
+
+    const fullTime = time + " " + ampm;
+    const appointment = {
+      patientName: name,
+      mobile: mobile,
+      email: email,
+      date: date,
+      time: fullTime,
+      notes: notes,
+      doctorId: doctorId,
+      doctor: doctorName,
+      specialty: doctorSpecialty
+    };
+
+    console.log("Appointment data:", appointment);
+    
+    setTimeout(() => {
+      msg.style.display = "block";
+      showAlert();
+      form.reset();
+      selectedDoctorDisplay.innerHTML = '<div class="placeholder-text">Tap to select a doctor</div>';
+      setTimeout(() => msg.style.display = "none", 3000);
+    }, 1000);
+  };
+
+  function showAlert() {
+    alertBox.style.display = "block";
+    setTimeout(() => {
+      alertBox.style.display = "none";
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>

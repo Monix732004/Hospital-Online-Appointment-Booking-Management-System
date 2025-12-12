@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MM Hospital - Quality Healthcare Services</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      font-family: 'Arial', sans-serif;
+    }
+    .navbar-inverse {
+      background-color: black;
+      border-color: black;
+    }
+    .navbar-inverse .navbar-nav>li>a {
+      color: #fff;
+    }
+    .navbar-inverse .navbar-nav>li>a:hover {
+      background-color: #222;
+    }
+    .demo {
+      background-color: #022040;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    .carousel-inner>.item>img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+    }
+    .footer {
+      background-color: #480048;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 30px;
+    }
+    #appointmentConfirmation {
+      display: none;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: green;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+<div id="appointmentConfirmation">Appointment booked successfully!</div>
+
+<div class="container-fluid demo">
+  <h1>WELCOME TO MM HOSPITAL</h1>
+  <p>Your Health, Our Priority</p>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="aboutus.html">ABOUT US</a></li>
+      <li><a href="services.html">SERVICES</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="register.html"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Carousel -->
+<div class="container-fluid">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="./media/HOSPITAL.jpg" alt="Hospital">
+      </div>
+      <div class="item">
+        <img src="./media/h1.jpg" alt="Hallway">
+      </div>
+      <div class="item">
+        <img src="./media/h2.jpg" alt="Reception">
+      </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+
+<!-- Appointment Section -->
+<div class="container" id="appointmentSection" style="display:none; margin-top: 20px; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+  <h3>🩺 Book an Appointment</h3>
+  <form id="appointmentForm">
+    <div class="form-group">
+      <label for="doctor">Select Doctor:</label>
+      <select class="form-control" id="doctor" required>
+        <option value="">-- Choose Doctor --</option>
+        <option value="Dr. Asha Mehta - Cardiologist">Dr. Asha Mehta - Cardiologist</option>
+        <option value="Dr. Ravi Kumar - Orthopedic Surgeon">Dr. Ravi Kumar - Orthopedic Surgeon</option>
+        <option value="Dr. Nisha Patel - Dermatologist">Dr. Nisha Patel - Dermatologist</option>
+        <option value="Dr. Suresh Iyer - Pediatrician">Dr. Suresh Iyer - Pediatrician</option>
+        <option value="Dr. Farah Khan - Neurologist">Dr. Farah Khan - Neurologist</option>
+        <option value="Dr. Manoj Singh - General Physician">Dr. Manoj Singh - General Physician</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="date">Preferred Date:</label>
+      <input type="date" class="form-control" id="date" required>
+    </div>
+    <div class="form-group">
+      <label for="time">Preferred Time:</label>
+      <input type="time" class="form-control" id="time" required>
+    </div>
+    <div class="form-group">
+      <label for="reason">Reason for Visit:</label>
+      <textarea class="form-control" id="reason" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Book Appointment</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2025 MM Hospital. All Rights Reserved.</p>
+  <p>Contact: info@mmhospital.com | +91-9876543210</p>
+</div>
+
+<script>
+  // Simulate login success and show appointment section
+  document.getElementById('loginForm')?.addEventListener("submit", function(e) {
+    e.preventDefault();
+    document.getElementById('appointmentSection').style.display = 'block';
+  });
+
+  // Handle appointment booking
+  document.getElementById('appointmentForm').onsubmit = function(e) {
+    e.preventDefault();
+    const doctor = document.getElementById('doctor').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    document.getElementById('appointmentConfirmation').innerText =
+      `✅ Appointment booked with ${doctor} on ${date} at ${time}`;
+    document.getElementById('appointmentConfirmation').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('appointmentConfirmation').style.display = 'none';
+    }, 4000);
+    document.getElementById('appointmentForm').reset();
+  };
+</script>
+  
+</body>
+</html>

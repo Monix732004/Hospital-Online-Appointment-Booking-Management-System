@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab & Diagnostics</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 50%, #80deea 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #00796b;
+            text-align: center;
+        }
+        .test-category {
+            margin-bottom: 30px;
+        }
+        .test-category h2 {
+            color: #00796b;
+            border-bottom: 2px solid #00796b;
+            padding-bottom: 5px;
+        }
+        .tests {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .test {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .test h3 {
+            margin-top: 0;
+            color: #00695c;
+        }
+        .back-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 10px;
+            background-color: #00796b;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-button:hover {
+            background-color: #00695c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lab & Diagnostics</h1>
+        
+        <div class="test-category">
+            <h2>Blood Tests</h2>
+            <div class="tests">
+                <div class="test">
+                    <h3>Complete Blood Count (CBC)</h3>
+                    <p>Measures red/white cells, hemoglobin, platelets</p>
+                    <p>Fasting: Not required</p>
+                </div>
+                <div class="test">
+                    <h3>Lipid Profile</h3>
+                    <p>Cholesterol, triglycerides, HDL/LDL levels</p>
+                    <p>Fasting: 12 hours required</p>
+                </div>
+                <div class="test">
+                    <h3>Blood Glucose</h3>
+                    <p>Measures sugar levels (fasting/random/HbA1c)</p>
+                    <p>Fasting: 8 hours for fasting test</p>
+                </div>
+                <div class="test">
+                    <h3>Liver Function Test</h3>
+                    <p>ALT, AST, bilirubin, proteins, enzymes</p>
+                    <p>Fasting: Not required</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-category">
+            <h2>Imaging Scans</h2>
+            <div class="tests">
+                <div class="test">
+                    <h3>X-Ray</h3>
+                    <p>Bone fractures, chest infections, dental</p>
+                    <p>Duration: 5-15 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>Ultrasound</h3>
+                    <p>Abdominal organs, pregnancy, soft tissues</p>
+                    <p>Duration: 15-30 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>CT Scan</h3>
+                    <p>Detailed cross-sectional body images</p>
+                    <p>Duration: 10-30 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>MRI</h3>
+                    <p>Brain, spine, joints, soft tissue detail</p>
+                    <p>Duration: 15-60 minutes</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-category">
+            <h2>Specialized Tests</h2>
+            <div class="tests">
+                <div class="test">
+                    <h3>ECG</h3>
+                    <p>Heart electrical activity recording</p>
+                    <p>Duration: 5-10 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>Endoscopy</h3>
+                    <p>Digestive tract examination</p>
+                    <p>Duration: 15-30 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>Pulmonary Function</h3>
+                    <p>Lung capacity and function tests</p>
+                    <p>Duration: 20-45 minutes</p>
+                </div>
+                <div class="test">
+                    <h3>Allergy Panel</h3>
+                    <p>Identifies specific allergens</p>
+                    <p>Duration: Blood draw + lab analysis</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="services.html" class="back-button">Back to Services</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MM Hospital - About Us</title>
+
+  <!-- Bootstrap & Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(90deg, #0b0245, #03166c);
+      color: white;
+    }
+
+      .navbar, .footer {
+      background-color: black;
+      padding: 15px;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      font-size: 16px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px 20px;
+      width: 350px; /* Increased width */
+      transition: 0.3s ease-in-out;
+      text-align: center;
+      flex: 1 1 300px; /* Added flex property for better responsiveness */
+    }
+
+    .feature-box:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .feature-box i {
+      font-size: 32px;
+      color: #4eaaff;
+      margin-bottom: 12px;
+    }
+
+    .feature-box h4 {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 20px; /* Slightly larger heading */
+    }
+
+    /* Back Button */
+    .back-btn {
+      display: block;
+      width: 160px;
+      margin: 40px auto;
+      padding: 12px;
+      background-color: #0f2966;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 2px solid white;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: white;
+      color: #000;
+    }
+
+    .back-btn::before {
+      content: "← ";
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        padding: 0 10px;
+        gap: 20px;
+      }
+      .feature-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    MM HOSPITAL - ABOUT US
+  </div>
+
+  <!-- About Section -->
+  <div class="section">
+    <h2>About MM Hospital</h2>
+    <p>We offer advanced, secure, and transparent healthcare operations — driven by experienced staff, smart technology, and a commitment to excellence.</p>
+
+    <div class="features">
+      <a href="med.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+            <i class="fas fa-file-medical-alt"></i>
+            <h4>Medical Documentation</h4>
+            <p>Digitized case notes, consent forms, and OT records maintained.</p>
+        </div>
+      </a>
+
+      <a href="audit.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+            <i class="fas fa-clipboard-check"></i>
+            <h4>Audit & Logs</h4>
+            <p>System-wide tracking of changes, logins, and data interactions.</p>
+        </div>
+      </a>
+
+      <a href="report.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+          <i class="fas fa-chart-pie"></i>
+          <h4>Reports & Analytics</h4>
+          <p>Visual data on patient flow, finances, diseases & occupancy.</p>
+        </div>
+      </a>
+
+      <a href="communication.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+          <i class="fas fa-comments"></i>
+          <h4>Internal Communication</h4>
+          <p>Chat & message system for better hospital coordination.</p>
+        </div>
+      </a>
+
+      <a href="feedback.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+          <i class="fas fa-comment-dots"></i>
+          <h4>Feedback System</h4>
+          <p>Collect and respond to patient feedback for continuous improvement.</p>
+        </div>
+      </a>
+
+      <a href="security.html" style="text-decoration: none; color: inherit;">
+        <div class="feature-box">
+          <i class="fas fa-shield-alt"></i>
+          <h4>Security & Compliance</h4>
+          <p>HIPAA-compliant systems with encryption and daily backups.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn">Back </a>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>&copy; 2025 MM Hospital | Built for excellence and patient care</p>
+  </div>
+
+</body>
+</html>

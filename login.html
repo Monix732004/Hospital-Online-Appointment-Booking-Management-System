@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - MM Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e6f0ff, #ffffff);
+      margin: 0;
+      padding-top: 70px;
+    }
+
+    .navbar {
+      background-color: #022040;
+      border: none;
+      border-radius: 0;
+    }
+
+    .navbar-brand, .navbar-nav > li > a {
+      color: white !important;
+      font-weight: bold;
+    }
+
+    .navbar-brand:hover, .navbar-nav > li > a:hover {
+      color: #a8c7ff !important;
+    }
+
+    .login-container {
+      max-width: 400px;
+      margin: auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #022040;
+    }
+
+    .btn-primary {
+      background-color: #022040;
+      border-color: #022040;
+    }
+
+    .btn-primary:hover {
+      background-color: #013366;
+      border-color: #013366;
+    }
+
+    .footer {
+      background-color: #022040;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">MM Hospital</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Login Form -->
+<div class="login-container">
+  <h2>Login to MM Hospital</h2>
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="loginUsername">Username</label>
+      <input type="text" class="form-control" id="loginUsername" required>
+    </div>
+    <div class="form-group">
+      <label for="loginPwd">Password</label>
+      <input type="password" class="form-control" id="loginPwd" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>&copy; 2025 MM Hospital. All Rights Reserved.</p>
+</div>
+
+<!-- JS -->
+<script>
+  document.getElementById('loginForm').onsubmit = function(e) {
+    e.preventDefault();
+    alert('✅ Login successful!');
+    window.location.href = "admin-dashboard.html"; // Redirect after login
+  };
+</script>
+
+</body>
+</html>
